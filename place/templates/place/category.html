@@ -1,0 +1,60 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load mytags %}
+{% block title %}{{ city }} Beste {{ category }} in {{ city }}{% endblock %}
+{% block h1 %}<h1>{{ places|length }} {{ city }} Beste {{ category }} in {{ city }}</h1>{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="/{{ city }}">{{ city }} in {{ region }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ category }}</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content %}
+
+{{ request.GET.payments }}
+    <div class="row">
+        <div class="col-md-3 border">
+            <form class="form" method="get" action="">
+                {% include "place/include/filter_check.html" with title="Billig "|add:category|add:" in "|add:city name="price" elements=price %}
+
+                {% include "place/include/filter_check.html" with title="Atmosphere" name="atmosphere" elements=atmosphere %}
+
+                {% include "place/include/filter_check.html" with title="Crowd" name="crowd" elements=crowd %}
+
+                {% include "place/include/filter_check.html" with title="Accessibility" name="accessibility" elements=accessibility %}
+
+                {% include "place/include/filter_check.html" with title="Planning" name="planning" elements=planning %}
+
+                {% include "place/include/filter_check.html" with title="Payments" name="payments" elements=payments %}
+
+                {% include "place/include/filter_check.html" with title="Services" name="services" elements=services %}
+                <div>
+                    <div class="form-check mt-3">
+                        <input name="open_now[]" class="form-check-input" type="checkbox" value="1"
+                               id="open_now" {% checked "open_now" "1" %}>
+                        <label class="form-check-label" for="open_now">
+                            show only open now business
+                        </label>
+                    </div>
+                    <input type="submit" class="btn btn-primary mt-3" value="Apply">
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="col">
+             {% include "place/include/boxes.html" with boxes=places %}
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}

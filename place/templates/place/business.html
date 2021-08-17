@@ -1,0 +1,195 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load mytags %}
+{% load bootstrap5 %}
+{% block title %}{{ p.business_names }} {{ p.review }} Echte Bewertungen{% endblock %}
+{% block h1 %}<h1>{{ p.business_names }} {{ p.review }} Echte Bewertungen</h1>{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="/{{ p.city }}">{{ p.city }}
+                in {{ p.region }}</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a
+                    href="/{{ p.city }}/{{ p.category }}">{{ p.category }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ p.business_names }}</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="my-2">{{ p.company_name }} {{ p.rating }} ({{ p.review }})</div>
+    <div class="my-4">
+    {% if send != "ok" %}
+        <form method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-primary" value="Send">
+        </form>
+    {% else %}
+        <div class="alert alert-success" role="alert">Review added</div>
+    {% endif %}
+    </div>
+    <div class="accordion" id="accordion-reviews">
+        {% for i in reviews %}
+            <div class="accordion-item">
+                <div class="accordion-header" id="heading_{{ forloop.counter }}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#itemReview_{{ forloop.counter }}"
+                            aria-expanded="true" aria-controls="itemReview__{{ forloop.counter }}">
+                        {{ i.reviewer_name }} ({{ i.rating_stars }})
+                    </button>
+                </div>
+                <div id="itemReview_{{ forloop.counter }}" class="accordion-collapse collapse"
+                     aria-labelledby="heading_{{ forloop.counter }}"
+                     data-bs-parent="#accordion-reviews">
+                    <div class="accordion-body">
+                        <div>
+                            <a href="{{ i.reviewer_profile_link }}">Profile</a>
+                        </div>
+                        <div>
+                            Stars: {{ i.rating_stars }}
+                        </div>
+                        <div>
+                            {{ i.review_text }}
+                        </div>
+                        <div>
+                            {% for j in i.get_images %}
+                                <img width="30%" class="img-thumbnail" src="{{ j }}" alt=""/>
+                            {% empty %}
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="my-2">
+            Reviews sorting: {{ p.reviews_sorting }}
+        </div>
+        <div class="my-2">
+            Phone number: {{ p.phone }}
+        </div>
+        <div class="my-2">
+            Website: <a href="{{ p.website }}" class="href">{{ p.website }}</a>
+        </div>
+        <div class="my-2">
+            About: {{ p.about }}
+        </div>
+        <div class="my-2">
+            Services: {{ p.services }}
+        </div>
+        <div class="my-2">
+            Address: {{ p.address }}
+        </div>
+        <div class="my-2">Opening times:</div>
+        <div class="container">
+            <div class="row">
+
+                {% for j in open_time %}
+                    <div class="col-6">{{ j.day }}</div>
+                    <div class="col-6">{{ j.open_interval }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="my-2">
+            Service options {{ p.service_options }}
+        </div>
+        <div class="my-2">
+            Link to menu: <a href="{{ p.link_to_menu }}">{{ p.link_to_menu }}</a>
+        </div>
+        <div class="my-2">
+            Offerings: {{ p.offerings }}
+        </div>
+        <div class="my-2">
+            Amenities: {{ p.amenities }}
+        </div>
+        <div class="my-2">
+            Accessibility: {{ p.accessibility }}
+        </div>
+        <div class="my-2">
+            Crowd: {{ p.accessibility }}
+        </div>
+        <div class="my-2">
+            Atmosphere: {{ p.atmosphere }}
+        </div>
+        <div class="my-2">
+            Planning: {{ p.planning }}
+        </div>
+        <div class="my-2">
+            Payment options: {{ p.payments }}
+        </div>
+        <div class="my-2">
+            <div>Photos Inside: </div>
+            <div class="row">
+                <div class="col-6">
+                    {% include "place/include/carousel.html" with id="1" slides=p.get_photos_inside  %}
+                </div>
+            </div>
+        </div>
+        <div class="my-2">
+            <div>
+                General Photos:
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {% include "place/include/carousel.html" with id="2" slides=p.get_photos_menu  %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {% include "place/include/carousel.html" with id="3" slides=p.get_photos_owner  %}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="my-2">Menu</div>
+        <div class="row">
+            <div class="col-6">
+
+                {% include "place/include/carousel.html" with id="4" slides=hg_slides %}
+            </div>
+        </div>
+
+        <div class="my-2">
+            Details: {{ p.details }}
+        </div>
+        <div class="my-2">
+            <div>Social accounts</div>
+            <div><a href="{{ p.facebook }}">Facebook</a></div>
+            <div><a href="{{ p.instagram }}">Instagram</a></div>
+            <div><a href="{{ p.linkedin }}">Linkedin</a></div>
+            <div><a href="{{ p.twitter }}">Twitter</a></div>
+            <div><a href="{{ p.youtube }}">Youtube</a></div>
+            <div><a href="{{ p.pinterest }}">Pinterest</a></div>
+        </div>
+
+        <div class="my-2">
+            <div>
+                Products pictures:
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {% include "place/include/carousel.html" with id="5" slides=p.get_product_slider %}
+                </div>
+            </div>
+
+
+        </div>
+        <div class="my-2">
+            <div>Questions</div>
+            {% for i in questions %}
+                <div>Answered by: {{ i.answered_by }}</div>
+                <div>Question: {{ i.question }}</div>
+                <div>Answer: {{ i.answer }}</div>
+                <div>Answered by: {{ i.answered_by|default:"no name" }}</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

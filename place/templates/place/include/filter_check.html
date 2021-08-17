@@ -1,0 +1,21 @@
+{% load mytags %}
+<div class="mt-3">
+
+    {% for i in elements %}
+        {% if i == None or i == 'None' %}
+            {% if elements|length == 1 %}
+
+            {% endif %}
+        {% else %}
+            <h3>{{ title }}</h3>
+            <input name="{{ name }}[]" type="checkbox" class="btn-check"
+                   id="{{ name }}_{{ forloop.counter }}" autocomplete="off" value="{{ i }}" {% checked name i %}>
+            <label class="btn btn-sm btn-outline-primary"
+                   for="{{ name }}_{{ forloop.counter }}">{{ i }}</label>
+
+        {% endif %}
+
+    {% endfor %}
+
+
+</div>

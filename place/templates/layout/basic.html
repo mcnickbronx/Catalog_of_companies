@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}">
+    
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->  
+    <link rel="stylesheet" href={% static "assets/bootstrap/css/bootstrap.css" %}>
+    
+
+    <link rel="stylesheet" href={% static "css/theme.css" %}>
+    
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    {% include "layout/header.html" %}
+    
+    <main class="flex-fill">
+        <div class="container mt-5">
+            {% block h1 %}
+            {% endblock %}
+        </div>
+        <div class="container">
+            {% block breadcrumb %}
+            {% endblock %}
+        </div>
+        <div class="container mt-5">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    Copyright, {% now 'Y' %}
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src={% static "assets/bootstrap/js/bootstrap.min.js" %}></script>
+
+{% autoescape off %}
+{% block script %}
+{% endblock %}
+{% endautoescape %}
+</body>
+</html>

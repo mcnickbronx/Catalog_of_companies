@@ -1,0 +1,55 @@
+<div class="container px-4">
+    <div class="row gx-4 gy-4">
+
+        {% for i in boxes %}
+            <div class="col-md-6 col-sm-12">
+                <div class="p-3 border bg-light">
+                    <div>
+                        <a href="/{{ i.city }}/{{ i.category }}/{{ i.business_names }}"
+                           target="_blank">{{ i.business_names }}</a>
+                    </div>
+                    <div>
+                        Rating: {{ i.rating }} ({{ i.review }})
+                    </div>
+                    <div>
+                        Address: {{ i.address }}
+                    </div>
+
+                    <div>
+                        Phone: {{ i.phone }}
+                    </div>
+                    <div>
+                        <a href="{{ i.website }}">{{ i.website }}</a>
+                    </div>
+
+                    <div>
+                        <hr>
+                    </div>
+                    <div style="font-size:14px">
+                        <div>
+                            Price: {{ i.price }}
+                        </div>
+                        <div>
+                            Atmosphere: {{ i.atmosphere }}
+                        </div>
+                        <div>
+                            Payments: {{ i.payments }}
+                        </div>
+                        <div>
+                            Crowd: {{ i.crowd }}
+                        </div>
+                        <div>
+                            Accessibility: {{ i.accessibility }}
+                        </div>
+                        <div>
+                            Planning: {{ i.planning }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+

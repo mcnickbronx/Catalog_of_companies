@@ -1,0 +1,36 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load bootstrap5 %}
+{% block title %}Home page{% endblock %}
+{% block h1 %}<h1>Home page</h1>{% endblock %}
+
+{% block content %}
+
+    <div class="mt-3 cart">
+        <div class="card-body">
+            <h2 class="card-title">Cities</h2>
+            {% for i in cities %}
+                <div>
+                    <a href="/{{ i.city }}">{{ i.city }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-3 cart">
+        <div class="card-body">
+            <h2 class="card-title">Categories</h2>
+            {% for i in categories %}
+                <div>
+                    <a href="/{{ i.city }}/{{ i.category }}">{{ i.category }} in {{ i.city }}</a>
+                </div>
+            {% endfor %}
+
+        </div>
+        <div>
+            {% bootstrap_pagination page %}
+        </div>
+    </div>
+
+
+{% endblock %}

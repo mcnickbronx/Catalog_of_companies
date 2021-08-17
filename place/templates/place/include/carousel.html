@@ -1,0 +1,24 @@
+<div id="carouselCaptions_{{ id }}" class="carousel slide" data-bs-ride="carousel"  >
+    <div class="carousel-inner">
+        {% for i in slides %}
+
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+            <img src="{% if i.image|length > 0 %}{{ i.image }}{% else %}{{ i }}{% endif %}"
+                 class="d-block w-100 img-thumbnail" alt="{% if i.image|length > 0 %}{{ i.title }}{% else %}{% endif %}">
+            <div class="carousel-caption d-none d-md-block">
+                <p>{% if i.image|length > 0 %}{{ i.title }}{% else %}{% endif %}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions_{{ id }}"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions_{{ id }}"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
