@@ -21,5 +21,11 @@ python_version = "3.8"
 
 ## Example of work
 
+Frontend
 
+![me](http://g.recordit.co/FoRxF70KTC.gif)
+
+Admin panel
+
+![me](http://g.recordit.co/SJGsqi73UP.gif)
 
